@@ -1,0 +1,303 @@
+# 🎂 Build a Premium Birthday Surprise Website
+
+Create a modern, premium-quality, fully responsive single-page birthday surprise website dedicated to **"Abii Akka"**. The website should feel emotional, elegant, and interactive, using smooth animations, beautiful typography, and a soft pink, purple, and gold color theme. The design should be mobile-friendly and desktop-friendly.
+
+## General Requirements
+
+* Single-page responsive website
+* HTML, CSS, JavaScript
+* Clean, modular code
+* Smooth scrolling
+* Premium UI/UX
+* Fast loading
+* Beautiful entrance animations
+* No login or backend required
+
+---
+
+# Loading Screen
+
+Display a full-screen loading page.
+
+Show:
+
+"Preparing a Special Surprise..."
+
+Loading animation with glowing hearts and stars.
+
+After 3 seconds, automatically transition to the main page.
+
+---
+
+# Hero Section
+
+Display a full-screen hero section with:
+
+✨ HAPPY BIRTHDAY ✨
+
+❤️ Abii Akka ❤️
+
+"Today is your special day."
+
+Include:
+
+* Floating balloons
+* Sparkles
+* Floating hearts
+* Soft glowing background
+* Animated gradient background
+* Large "Start the Surprise" button
+
+When the button is clicked, smoothly scroll to the next section.
+
+---
+
+# Welcome Message
+
+Display a typing animation with the following message:
+
+"Every birthday is a new beginning.
+
+Today is not just another day.
+
+It is the day the world became more beautiful because you were born.
+
+This little surprise is made especially for you."
+
+Animate the text line by line.
+
+---
+
+# Memory Gallery
+
+Create a premium gallery section.
+
+Features:
+
+* Responsive image grid
+* Hover zoom effect
+* Lightbox preview
+* Fade-in animation
+* Rounded corners
+* Glassmorphism cards
+
+Add placeholder images that can later be replaced.
+
+---
+
+# Tamil Letter
+
+Create a beautifully animated letter section.
+
+The letter should appear inside a paper-style card with a handwritten font.
+
+Display the following text:
+
+அன்புள்ள அபி அக்காவிற்கு,
+
+இனிய பிறந்தநாள் நல்வாழ்த்துகள்!
+
+உங்கள் வாழ்க்கையின் இந்த அழகான நாளில், என் மனமார்ந்த வாழ்த்துகளை உங்களுக்குத் தெரிவிக்கிறேன்.
+
+எப்போதும் அன்பாகப் பேசி, அக்கறையுடன் நடந்து, அனைவரின் முகத்திலும் புன்னகையை வரவழைக்கும் நல்ல மனம் கொண்டவர் நீங்கள்.
+
+இந்த புதிய வயது உங்களுக்கு மகிழ்ச்சி, நல்ல உடல்நலம், வெற்றி, அமைதி மற்றும் எண்ணற்ற இனிய நினைவுகளை கொண்டு வரட்டும்.
+
+எப்போதும் இதேபோல் சிரித்துக் கொண்டே மகிழ்ச்சியாக வாழுங்கள்.
+
+மீண்டும் ஒருமுறை...
+
+🎂 இனிய பிறந்தநாள் நல்வாழ்த்துகள் அபி அக்கா! 🎂
+
+அன்புடன்,
+
+Ishuu ❤️
+
+Use a typing effect or letter-opening animation.
+
+---
+
+# Birthday Cake
+
+Create a realistic animated birthday cake.
+
+Features:
+
+* Three burning candles
+* Flickering candle flames
+* "Blow the Candles" button
+
+When clicked:
+
+* Candle flames disappear
+* Confetti falls
+* Fireworks begin
+* Celebration sound plays
+* The message "Make a wish!" appears
+
+---
+
+# Reasons You're Amazing
+
+Display six animated cards.
+
+Each card contains one reason:
+
+❤️ Your Smile
+
+❤️ Your Kind Heart
+
+❤️ Your Caring Nature
+
+❤️ Your Support
+
+❤️ Your Positivity
+
+❤️ Your Beautiful Soul
+
+Cards should flip or fade in while scrolling.
+
+---
+
+# Birthday Wishes
+
+Display wishes one by one.
+
+Use fade animation.
+
+Include:
+
+🌸 May happiness always find you.
+
+🌸 May every dream come true.
+
+🌸 May success follow you.
+
+🌸 May your smile never fade.
+
+🌸 Stay blessed forever.
+
+---
+
+# Fireworks Finale
+
+Create a full-screen celebration.
+
+Include:
+
+* Fireworks
+* Floating hearts
+* Sparkles
+* Confetti
+* Golden glowing text
+
+Display:
+
+Happy Birthday
+
+❤️ Abii Akka ❤️
+
+May all your dreams come true.
+
+---
+
+# Final Thank You
+
+Display a beautiful ending screen.
+
+Show:
+
+❤️ THANK YOU ❤️
+
+For every smile...
+
+For every memory...
+
+For always being there...
+
+Happy Birthday once again.
+
+Love,
+
+Ishuu ❤️
+
+Include a glowing heart animation.
+
+---
+
+# Background Music
+
+Provide an audio player.
+
+Support autoplay (where browser policies allow), play/pause, and volume control.
+
+Allow replacing the music file easily.
+
+---
+
+# Color Palette
+
+Primary:
+Pink (#FF69B4)
+
+Secondary:
+Purple (#9B5DE5)
+
+Accent:
+Gold (#FFD700)
+
+Background:
+Soft gradient using pink, purple, and white.
+
+---
+
+# Fonts
+
+Use elegant Google Fonts.
+
+Heading:
+Pacifico
+
+Body:
+Poppins
+
+Letter:
+Dancing Script or a similar handwritten font.
+
+---
+
+# Animations
+
+Use smooth animations throughout.
+
+Include:
+
+* Floating balloons
+* Floating hearts
+* Sparkles
+* Falling flower petals
+* Confetti
+* Fireworks
+* Typing effect
+* Scroll reveal animations
+* Fade-in transitions
+* Glow effects
+* Hover animations
+
+Keep all animations smooth and lightweight.
+
+---
+
+# Footer
+
+Display:
+
+Made with ❤️ by Ishuu
+
+Happy Birthday Abii Akka
+
+End with a small heart animation.
+
+---
+
+The final result should feel like a premium digital birthday card—warm, elegant, emotional, and memorable. Every section should transition smoothly into the next, creating a story-like experience that celebrates Abii Akka's special day.

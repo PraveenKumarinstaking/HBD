@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Abii Akka! ❤️</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 1. LOADING SCREEN -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader-content">
+            <div class="loader-heart">❤️</div>
+            <h2 class="loader-text">Preparing a Special Surprise...</h2>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+    </div>
+
+    <!-- Background Music Audio Tag / Fallback Synthesized Audio Toggle -->
+    <div class="music-player-container" id="music-player">
+        <button id="music-toggle" class="music-btn" aria-label="Toggle Music">
+            <i class="fas fa-music"></i>
+        </button>
+        <span class="music-status">Play Background Music 🎵</span>
+        <audio id="bg-audio" loop>
+            <!-- User can easily replace this source with their preferred MP3 -->
+            <source src="birthday_melody.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Floating Particles Canvas (Balloons, Hearts, Flower Petals) -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Main Container -->
+    <main id="main-content" class="hidden">
+
+        <!-- 2. HERO SECTION -->
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <p class="hero-sparkles">✨ HAPPY BIRTHDAY ✨</p>
+                <h1 class="hero-title">Abii Akka</h1>
+                <p class="hero-subtitle">Today is your special day.</p>
+                <button id="start-surprise-btn" class="btn btn-glow">Start the Surprise <i class="fas fa-heart"></i></button>
+            </div>
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- 3. WELCOME MESSAGE -->
+        <section id="welcome" class="welcome-section section-padding">
+            <div class="container glass-card">
+                <div class="welcome-icon">✨</div>
+                <div id="welcome-typing" class="typing-container">
+                    <!-- Javascript will type this out -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. MEMORY GALLERY -->
+        <section id="gallery" class="gallery-section section-padding">
+            <div class="container">
+                <h2 class="section-title">Memory Gallery 📸</h2>
+                <p class="section-subtitle">A collection of beautiful moments & sweet memories</p>
+                <div class="gallery-grid">
+                    <!-- Gallery Items with Placeholders -->
+                    <div class="gallery-item glass-card" onclick="openLightbox(0)">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&auto=format&fit=crop&q=60" alt="Sweet Memory 1" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-info">
+                            <h3>Beautiful Moments</h3>
+                            <p>Sparkling memories filled with laughter</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item glass-card" onclick="openLightbox(1)">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&auto=format&fit=crop&q=60" alt="Sweet Memory 2" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-info">
+                            <h3>Warm Smiles</h3>
+                            <p>For all the happiness you share</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item glass-card" onclick="openLightbox(2)">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&auto=format&fit=crop&q=60" alt="Sweet Memory 3" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-info">
+                            <h3>Joy & Laughter</h3>
+                            <p>Making every single day brighter</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item glass-card" onclick="openLightbox(3)">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=600&auto=format&fit=crop&q=60" alt="Sweet Memory 4" loading="lazy">
+                            <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                        </div>
+                        <div class="gallery-info">
+                            <h3>Endless Support</h3>
+                            <p>A guiding light in every step</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <span class="close-lightbox">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+            <div id="lightbox-caption"></div>
+        </div>
+
+        <!-- 5. TAMIL LETTER -->
+        <section id="tamil-letter" class="letter-section section-padding">
+            <div class="container">
+                <h2 class="section-title">A Special Letter ✉️</h2>
+                <div class="letter-envelope-wrapper">
+                    <div class="envelope" id="envelope">
+                        <div class="envelope-flap"></div>
+                        <div class="envelope-paper">
+                            <div class="letter-content-inner">
+                                <p class="tamil-text" id="tamil-letter-text">
+                                    <!-- Javascript will type or animate this out -->
+                                </p>
+                            </div>
+                        </div>
+                        <div class="envelope-front">
+                            <div class="envelope-seal">❤️<br><span>Click to Open</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. BIRTHDAY CAKE -->
+        <section id="cake-section" class="cake-section section-padding">
+            <div class="container">
+                <h2 class="section-title">Blow the Candles 🎂</h2>
+                <p class="section-subtitle">Make a silent wish & click to blow the candles!</p>
+                
+                <div class="cake-container">
+                    <div class="cake">
+                        <div class="plate"></div>
+                        <div class="layer layer-bottom"></div>
+                        <div class="layer layer-middle"></div>
+                        <div class="layer layer-top"></div>
+                        <div class="icing"></div>
+                        <div class="drips"></div>
+                        <div class="candles">
+                            <div class="candle" id="candle-1">
+                                <div class="flame"></div>
+                            </div>
+                            <div class="candle" id="candle-2">
+                                <div class="flame"></div>
+                            </div>
+                            <div class="candle" id="candle-3">
+                                <div class="flame"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cake-controls">
+                    <button id="blow-btn" class="btn btn-gold-glow">Blow the Candles 💨</button>
+                    <h3 id="wish-message" class="wish-msg hidden">✨ Make a wish! ✨</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. REASONS YOU'RE AMAZING -->
+        <section id="reasons" class="reasons-section section-padding">
+            <div class="container">
+                <h2 class="section-title">Why You're So Amazing ❤️</h2>
+                <p class="section-subtitle">Just a few of the infinite reasons you are special</p>
+                <div class="reasons-grid">
+                    <!-- Reason Card 1 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front glass-card">
+                                <div class="reason-icon">😊</div>
+                                <h3>Your Smile</h3>
+                            </div>
+                            <div class="flip-card-back glass-card">
+                                <p>Your beautiful smile has the power to light up the darkest of days and bring warmth to everyone around you.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reason Card 2 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front glass-card">
+                                <div class="reason-icon">💖</div>
+                                <h3>Your Kind Heart</h3>
+                            </div>
+                            <div class="flip-card-back glass-card">
+                                <p>You always think of others first, spreading love, kindness, and absolute joy wherever you go.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reason Card 3 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front glass-card">
+                                <div class="reason-icon">🤗</div>
+                                <h3>Your Caring Nature</h3>
+                            </div>
+                            <div class="flip-card-back glass-card">
+                                <p>The way you check up on others, offer comfort, and show deep care makes you one in a million.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reason Card 4 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front glass-card">
+                                <div class="reason-icon">🛡️</div>
+                                <h3>Your Support</h3>
+                            </div>
+                            <div class="flip-card-back glass-card">
+                                <p>You are always there, standing strong like a pillar of support and guidance whenever you are needed.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reason Card 5 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front glass-card">
+                                <div class="reason-icon">☀️</div>
+                                <h3>Your Positivity</h3>
+                            </div>
+                            <div class="flip-card-back glass-card">
+                                <p>You bring a radiant aura of positive energy, hope, and strength to every conversation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Reason Card 6 -->
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front glass-card">
+                                <div class="reason-icon">🌟</div>
+                                <h3>Your Beautiful Soul</h3>
+                            </div>
+                            <div class="flip-card-back glass-card">
+                                <p>Pure, genuine, loving, and beautiful inside out. You truly make this world a much better place.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. BIRTHDAY WISHES -->
+        <section id="wishes" class="wishes-section section-padding">
+            <div class="container">
+                <h2 class="section-title">Wishes For You 🌸</h2>
+                <div class="wishes-carousel glass-card">
+                    <div class="wish-slide active">
+                        <p class="wish-text">🌸 May happiness always find you wherever you go.</p>
+                    </div>
+                    <div class="wish-slide">
+                        <p class="wish-text">🌸 May every single dream of yours blossom into reality.</p>
+                    </div>
+                    <div class="wish-slide">
+                        <p class="wish-text">🌸 May success and abundance follow you in all your paths.</p>
+                    </div>
+                    <div class="wish-slide">
+                        <p class="wish-text">🌸 May your beautiful smile never fade, even for a moment.</p>
+                    </div>
+                    <div class="wish-slide">
+                        <p class="wish-text">🌸 Stay blessed, loved, and happy forever and always.</p>
+                    </div>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="currentWish(0)"></span>
+                        <span class="dot" onclick="currentWish(1)"></span>
+                        <span class="dot" onclick="currentWish(2)"></span>
+                        <span class="dot" onclick="currentWish(3)"></span>
+                        <span class="dot" onclick="currentWish(4)"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. FIREWORKS FINALE -->
+        <section id="finale" class="finale-section section-padding">
+            <div class="finale-overlay"></div>
+            <div class="container">
+                <div class="finale-box glass-card">
+                    <h2 class="finale-title animated-gradient-text">Happy Birthday</h2>
+                    <h1 class="finale-name">Abii Akka ❤️</h1>
+                    <p class="finale-wish">May all your dreams come true.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. FINAL THANK YOU -->
+        <section id="thank-you" class="thankyou-section section-padding">
+            <div class="container">
+                <div class="thankyou-card glass-card">
+                    <div class="glowing-heart">❤️</div>
+                    <h2 class="thankyou-title">THANK YOU</h2>
+                    <ul class="thankyou-list">
+                        <li>For every smile you bring...</li>
+                        <li>For every precious memory...</li>
+                        <li>For always being there for me...</li>
+                    </ul>
+                    <p class="thankyou-closing">Happy Birthday once again!</p>
+                    <p class="thankyou-signature">Love,<br><span class="signature-name">Ishuu ❤️</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. FOOTER -->
+        <footer class="footer">
+            <p>Made with ❤️ by Ishuu</p>
+            <p>Happy Birthday Abii Akka</p>
+            <div class="footer-heart"></div>
+        </footer>
+
+    </main>
+
+    <!-- Celebration Canvas Overlay (for Fireworks & Confetti explosions) -->
+    <canvas id="celebration-canvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
