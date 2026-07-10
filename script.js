@@ -344,17 +344,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 5. MEMORY GALLERY LIGHTBOX ---
     const images = [
-        "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1000&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1000&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1000&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=1000&auto=format&fit=crop&q=80"
+        "images/IMG-20260710-WA0017.jpg",
+        "images/IMG-20260710-WA0018.jpg",
+        "images/IMG-20260710-WA0019.jpg",
+        "images/IMG-20260710-WA0023.jpg",
+        "images/IMG-20260710-WA0024.jpg",
+        "images/IMG-20260710-WA0025.jpg"
     ];
     
     const captions = [
         "Beautiful Moments - Sparkling memories filled with laughter",
         "Warm Smiles - For all the happiness you share",
         "Joy & Laughter - Making every single day brighter",
-        "Endless Support - A guiding light in every step"
+        "Endless Support - A guiding light in every step",
+        "Caring Heart - An amazing sister and absolute guide",
+        "Wonderful Times - Wishing you the best in life"
     ];
 
     window.openLightbox = function(index) {
