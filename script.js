@@ -16,6 +16,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 mainContent.classList.remove('hidden');
                 document.body.classList.remove('preloading');
                 initBackgroundParticles();
+                
+                // Attempt to play music automatically after transition
+                startAudio();
+                
+                // If blocked by browser policies, play on first interaction anywhere
+                const playOnFirstInteraction = () => {
+                    startAudio();
+                    document.removeEventListener('click', playOnFirstInteraction);
+                    document.removeEventListener('touchstart', playOnFirstInteraction);
+                };
+                document.addEventListener('click', playOnFirstInteraction);
+                document.addEventListener('touchstart', playOnFirstInteraction);
             }, 1000);
         }
     }, 3000);
@@ -24,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (startSurpriseBtn) {
         startSurpriseBtn.addEventListener('click', () => {
             document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' });
-            startAudio(); // Play music on user gesture
+            startAudio(); // Ensure music plays on user gesture
             startWelcomeTyping();
         });
     }
