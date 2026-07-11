@@ -2,12 +2,33 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- AUDIO SYSTEM SELECTIONS (Define first to avoid reference errors) ---
+    const bgAudio = document.getElementById('bg-audio');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicStatus = document.querySelector('.music-status');
+    let isMusicPlaying = false;
+
     // --- 1. PRELOADER & PAGE TRANSITION ---
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
     const startSurpriseBtn = document.getElementById('start-surprise-btn');
     
-    // Auto transition after 3 seconds
+    // Attempt to start audio immediately (in case browser allows autoplay)
+    startAudio();
+
+    // Global listener to start audio on the absolute first interaction anywhere on the screen
+    const playOnFirstInteraction = () => {
+        startAudio();
+        // Remove listeners once playback is triggered
+        if (isMusicPlaying) {
+            document.removeEventListener('click', playOnFirstInteraction);
+            document.removeEventListener('touchstart', playOnFirstInteraction);
+        }
+    };
+    document.addEventListener('click', playOnFirstInteraction);
+    document.addEventListener('touchstart', playOnFirstInteraction);
+
+    // Auto transition loading screen after 3 seconds
     setTimeout(() => {
         if (loadingScreen) {
             loadingScreen.style.opacity = '0';
@@ -17,17 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('preloading');
                 initBackgroundParticles();
                 
-                // Attempt to play music automatically after transition
+                // Attempt to play music again after transition
                 startAudio();
-                
-                // If blocked by browser policies, play on first interaction anywhere
-                const playOnFirstInteraction = () => {
-                    startAudio();
-                    document.removeEventListener('click', playOnFirstInteraction);
-                    document.removeEventListener('touchstart', playOnFirstInteraction);
-                };
-                document.addEventListener('click', playOnFirstInteraction);
-                document.addEventListener('touchstart', playOnFirstInteraction);
             }, 1000);
         }
     }, 3000);
@@ -42,10 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 2. AUDIO SYSTEM FOR BACKGROUND MUSIC ---
-    const bgAudio = document.getElementById('bg-audio');
-    const musicToggle = document.getElementById('music-toggle');
-    const musicStatus = document.querySelector('.music-status');
-    let isMusicPlaying = false;
 
     function startAudio() {
         if (isMusicPlaying) return;
