@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
     const startSurpriseBtn = document.getElementById('start-surprise-btn');
+    const entryBtn = document.getElementById('entry-btn');
+    const loaderStatus = document.getElementById('loader-status');
+    const loaderBarContainer = document.getElementById('loader-bar-container');
     
     // Attempt to start audio immediately (modern browsers allow muted autoplay)
     bgAudio.play().then(() => {
@@ -34,22 +37,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', playOnFirstInteraction, { passive: true });
     document.addEventListener('touchstart', playOnFirstInteraction, { passive: true });
 
-    // Auto transition loading screen after 3 seconds
+    // Show Entry Button after progress completes (3 seconds)
     setTimeout(() => {
-        if (loadingScreen) {
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-                document.body.classList.remove('preloading');
-                initBackgroundParticles();
-                
-                // Attempt to play/unmute again after transition
-                bgAudio.muted = false;
-                startAudio();
-            }, 1000);
+        if (loaderBarContainer && loaderStatus && entryBtn) {
+            loaderBarContainer.classList.add('hidden');
+            loaderStatus.textContent = "Your Surprise is Ready! ✨";
+            entryBtn.classList.remove('hidden');
         }
     }, 3000);
+
+    // Dismiss preloader and start music when user clicks "Open Surprise"
+    if (entryBtn) {
+        entryBtn.addEventListener('click', () => {
+            bgAudio.muted = false;
+            startAudio();
+            
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                    document.body.classList.remove('preloading');
+                    initBackgroundParticles();
+                }, 1000);
+            }
+        });
+    }
 
     // Scroll to welcome section on clicking start surprise
     if (startSurpriseBtn) {
