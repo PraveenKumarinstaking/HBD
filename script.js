@@ -13,20 +13,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
     const startSurpriseBtn = document.getElementById('start-surprise-btn');
     
-    // Attempt to start audio immediately (in case browser allows autoplay)
-    startAudio();
+    // Attempt to start audio immediately (modern browsers allow muted autoplay)
+    bgAudio.play().then(() => {
+        isMusicPlaying = true;
+        updateMusicButtonState(true);
+    }).catch(err => {
+        console.log("Muted autoplay blocked or deferred.");
+    });
 
-    // Global listener to start audio on the absolute first interaction anywhere on the screen
+    // Global listener to unmute and start audio on the absolute first interaction anywhere on the screen
     const playOnFirstInteraction = () => {
+        bgAudio.muted = false;
         startAudio();
-        // Remove listeners once playback is triggered
-        if (isMusicPlaying) {
+        // Remove listeners once playback is triggered and unmuted
+        if (isMusicPlaying && !bgAudio.muted) {
             document.removeEventListener('click', playOnFirstInteraction);
             document.removeEventListener('touchstart', playOnFirstInteraction);
         }
     };
-    document.addEventListener('click', playOnFirstInteraction);
-    document.addEventListener('touchstart', playOnFirstInteraction);
+    document.addEventListener('click', playOnFirstInteraction, { passive: true });
+    document.addEventListener('touchstart', playOnFirstInteraction, { passive: true });
 
     // Auto transition loading screen after 3 seconds
     setTimeout(() => {
@@ -38,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('preloading');
                 initBackgroundParticles();
                 
-                // Attempt to play music again after transition
+                // Attempt to play/unmute again after transition
+                bgAudio.muted = false;
                 startAudio();
             }, 1000);
         }
@@ -48,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (startSurpriseBtn) {
         startSurpriseBtn.addEventListener('click', () => {
             document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' });
-            startAudio(); // Ensure music plays on user gesture
+            bgAudio.muted = false;
+            startAudio(); // Ensure music is playing and unmuted
             startWelcomeTyping();
         });
     }
@@ -56,14 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. AUDIO SYSTEM FOR BACKGROUND MUSIC ---
 
     function startAudio() {
-        if (isMusicPlaying) return;
-        
-        // Play standard MP3 file
+        bgAudio.muted = false;
         bgAudio.play().then(() => {
             isMusicPlaying = true;
             updateMusicButtonState(true);
         }).catch(err => {
-            console.log("Autoplay blocked. Waiting for user interaction to play audio.");
+            console.log("Autoplay unmuting deferred until interaction.");
         });
     }
 
