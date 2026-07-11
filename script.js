@@ -41,79 +41,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. AUDIO SYNTHESIS & MELODY (HAPPY BIRTHDAY MELODY) ---
-    const audioContextClass = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = null;
-    let isSynthPlaying = false;
-    let synthTimer = null;
-    
+    // --- 2. AUDIO SYSTEM FOR BACKGROUND MUSIC ---
     const bgAudio = document.getElementById('bg-audio');
     const musicToggle = document.getElementById('music-toggle');
     const musicStatus = document.querySelector('.music-status');
     let isMusicPlaying = false;
 
-    // Happy Birthday melody notes and durations (pitch in Hz, duration in seconds)
-    // Notes: C4, C4, D4, C4, F4, E4, C4, C4, D4, C4, G4, F4...
-    const melody = [
-        { note: 261.63, dur: 0.375 }, { note: 261.63, dur: 0.125 }, { note: 293.66, dur: 0.5 }, { note: 261.63, dur: 0.5 }, { note: 349.23, dur: 0.5 }, { note: 329.63, dur: 1.0 }, // Happy Birthday To You
-        { note: 261.63, dur: 0.375 }, { note: 261.63, dur: 0.125 }, { note: 293.66, dur: 0.5 }, { note: 261.63, dur: 0.5 }, { note: 392.00, dur: 0.5 }, { note: 349.23, dur: 1.0 }, // Happy Birthday To You
-        { note: 261.63, dur: 0.375 }, { note: 261.63, dur: 0.125 }, { note: 523.25, dur: 0.5 }, { note: 440.00, dur: 0.5 }, { note: 349.23, dur: 0.5 }, { note: 329.63, dur: 0.5 }, { note: 293.66, dur: 0.5 }, // Happy Birthday Dear Abii Akka
-        { note: 466.16, dur: 0.375 }, { note: 466.16, dur: 0.125 }, { note: 440.00, dur: 0.5 }, { note: 349.23, dur: 0.5 }, { note: 392.00, dur: 0.5 }, { note: 349.23, dur: 1.0 }  // Happy Birthday To You
-    ];
-
-    function playSynthMelody() {
-        if (!audioCtx) {
-            audioCtx = new audioContextClass();
-        }
-        
-        let index = 0;
-        
-        function playNextNote() {
-            if (!isSynthPlaying) return;
-            
-            const noteObj = melody[index];
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            osc.type = 'triangle'; // Sweet soft sound
-            osc.frequency.setValueAtTime(noteObj.note, audioCtx.currentTime);
-            
-            // Soft envelope
-            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + noteObj.dur - 0.05);
-            
-            osc.start();
-            osc.stop(audioCtx.currentTime + noteObj.dur);
-            
-            index = (index + 1) % melody.length;
-            synthTimer = setTimeout(playNextNote, noteObj.dur * 1000);
-        }
-        
-        isSynthPlaying = true;
-        playNextNote();
-    }
-
-    function stopSynthMelody() {
-        isSynthPlaying = false;
-        clearTimeout(synthTimer);
-    }
-
     function startAudio() {
         if (isMusicPlaying) return;
         
-        // Try playing standard MP3 file first
+        // Play standard MP3 file
         bgAudio.play().then(() => {
             isMusicPlaying = true;
             updateMusicButtonState(true);
         }).catch(err => {
-            // If file missing/failed, fall back to Web Audio synth
-            console.log("MP3 autoplay failed or file not found. Starting synthesized melody.");
-            playSynthMelody();
-            isMusicPlaying = true;
-            updateMusicButtonState(true);
+            console.log("Autoplay blocked. Waiting for user interaction to play audio.");
         });
     }
 
@@ -132,10 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (musicToggle) {
         musicToggle.addEventListener('click', () => {
             if (isMusicPlaying) {
-                // Pause standard MP3
                 bgAudio.pause();
-                // Stop synth if it's playing
-                stopSynthMelody();
                 isMusicPlaying = false;
                 updateMusicButtonState(false);
             } else {
@@ -463,6 +402,34 @@ Ishuu ❤️`;
     const wishMsg = document.getElementById('wish-message');
     const flames = document.querySelectorAll('.flame');
     let candlesBlown = false;
+
+    function playCelebrationSound() {
+        try {
+            const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioCtxClass();
+            const now = ctx.currentTime;
+            
+            const playChime = (freq, delay) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now + delay);
+                gain.gain.setValueAtTime(0.15, now + delay);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 1.2);
+                osc.start(now + delay);
+                osc.stop(now + delay + 1.2);
+            };
+            
+            playChime(523.25, 0);    // C5
+            playChime(659.25, 0.15); // E5
+            playChime(783.99, 0.3);  // G5
+            playChime(1046.50, 0.45);// C6
+        } catch(e) {
+            console.log("Celebration sound failed", e);
+        }
+    }
 
     // Blow action helper
     function blowOutCandles() {
