@@ -132,6 +132,16 @@
                             <p>Wishing you the best in life</p>
                         </div>
                     </div>
+                    <div class="gallery-item glass-card" onclick="openLightbox(6)">
+                        <div class="gallery-img-wrapper">
+                            <video src="images/birthday_video.mp4" muted loop autoplay playsinline style="width:100%; height:100%; object-fit:cover; pointer-events: none;"></video>
+                            <div class="gallery-overlay"><i class="fas fa-play"></i></div>
+                        </div>
+                        <div class="gallery-info">
+                            <h3>Special Video Message</h3>
+                            <p>Press play to watch this sweet video</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -140,6 +150,7 @@
         <div id="lightbox" class="lightbox" onclick="closeLightbox()">
             <span class="close-lightbox">&times;</span>
             <img class="lightbox-content" id="lightbox-img">
+            <video class="lightbox-content hidden" id="lightbox-video" style="margin: auto; display: block; max-width: 80%; max-height: 80%; border-radius: 10px; outline: none;" controls></video>
             <div id="lightbox-caption"></div>
         </div>
 

@@ -321,13 +321,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- 5. MEMORY GALLERY LIGHTBOX ---
+    // --- 5. MEMORY GALLERY LIGHTBOX & VIDEO ---
     const images = [
         "images/IMG-20260710-WA0017.jpg",
         "images/IMG-20260710-WA0018.jpg",
         "images/IMG-20260710-WA0019.jpg",
         "images/IMG-20260710-WA0023.jpg",
         "images/IMG-20260710-WA0024.jpg",
-        "images/IMG-20260710-WA0025.jpg"
+        "images/IMG-20260710-WA0025.jpg",
+        "images/birthday_video.mp4"
     ];
     
     const captions = [
@@ -336,17 +338,41 @@ document.addEventListener('DOMContentLoaded', () => {
         "Joy & Laughter - Making every single day brighter",
         "Endless Support - A guiding light in every step",
         "Caring Heart - An amazing sister and absolute guide",
-        "Wonderful Times - Wishing you the best in life"
+        "Wonderful Times - Wishing you the best in life",
+        "Special Video Message - A beautiful birthday greeting video"
     ];
+
+    let wasMusicPlayingBeforeVideo = false;
 
     window.openLightbox = function(index) {
         const lightbox = document.getElementById('lightbox');
         const img = document.getElementById('lightbox-img');
+        const video = document.getElementById('lightbox-video');
         const caption = document.getElementById('lightbox-caption');
         
-        if (lightbox && img && caption) {
-            img.src = images[index];
+        if (lightbox && img && video && caption) {
             caption.textContent = captions[index];
+            
+            // Check if source is MP4 video
+            if (images[index].endsWith('.mp4')) {
+                img.classList.add('hidden');
+                video.classList.remove('hidden');
+                video.src = images[index];
+                video.load();
+                
+                // Auto-pause background music to play video audio cleanly
+                if (isMusicPlaying) {
+                    bgAudio.pause();
+                    isMusicPlaying = false;
+                    updateMusicButtonState(false);
+                    wasMusicPlayingBeforeVideo = true;
+                }
+            } else {
+                video.classList.add('hidden');
+                img.classList.remove('hidden');
+                img.src = images[index];
+            }
+            
             lightbox.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -354,9 +380,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.closeLightbox = function() {
         const lightbox = document.getElementById('lightbox');
+        const video = document.getElementById('lightbox-video');
+        
         if (lightbox) {
+            // Stop and clear video
+            if (video) {
+                video.pause();
+                video.src = "";
+            }
+            
             lightbox.style.display = 'none';
             document.body.style.overflow = 'auto';
+            
+            // Resume background music if it was playing before
+            if (wasMusicPlayingBeforeVideo) {
+                bgAudio.play().then(() => {
+                    isMusicPlaying = true;
+                    updateMusicButtonState(true);
+                }).catch(err => console.log("Failed to resume background music automatically."));
+                wasMusicPlayingBeforeVideo = false;
+            }
         }
     };
 
